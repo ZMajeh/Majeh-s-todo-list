@@ -1,7 +1,7 @@
 use leptos::prelude::*;
 use leptos_router::hooks::use_navigate;
 use leptos_router::hooks::use_query_map;
-use crate::api::auth::{GOOGLE_CLIENT_ID, OAUTH_TOKEN_URL, OAUTH_REDIRECT_URI};
+use crate::api::auth::{GOOGLE_CLIENT_ID, OAUTH_TOKEN_URL, get_oauth_redirect_uri};
 use gloo_net::http::Request;
 
 #[component]
@@ -39,7 +39,7 @@ pub fn AuthCallbackPage() -> impl IntoView {
                     encode_uri(&code),
                     encode_uri(GOOGLE_CLIENT_ID),
                     encode_uri(&client_secret),
-                    encode_uri(OAUTH_REDIRECT_URI)
+                    encode_uri(&get_oauth_redirect_uri())
                 );
 
                 let token_res = match Request::post(OAUTH_TOKEN_URL)

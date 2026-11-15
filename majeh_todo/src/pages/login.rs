@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 use leptos_router::hooks::use_navigate;
-use crate::api::auth::{GOOGLE_CLIENT_ID, OAUTH_AUTHORIZE_URL, OAUTH_REDIRECT_URI, DEFAULT_OAUTH_SCOPES};
+use crate::api::auth::{GOOGLE_CLIENT_ID, OAUTH_AUTHORIZE_URL, get_oauth_redirect_uri, DEFAULT_OAUTH_SCOPES};
 
 #[component]
 pub fn LoginPage() -> impl IntoView {
@@ -21,7 +21,7 @@ pub fn LoginPage() -> impl IntoView {
             "{}?client_id={}&redirect_uri={}&response_type=code&scope={}&access_type=offline&prompt=consent",
             OAUTH_AUTHORIZE_URL,
             GOOGLE_CLIENT_ID,
-            encode_uri(OAUTH_REDIRECT_URI),
+            encode_uri(&get_oauth_redirect_uri()),
             encode_uri(DEFAULT_OAUTH_SCOPES)
         );
 
